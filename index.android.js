@@ -8,23 +8,23 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
+  View,
+  ToolbarAndroid
 } from 'react-native';
 
 class collectormobile extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+
+      <ToolbarAndroid
+            navIcon={require('./src/images/ic_menu_black_24dp.png')}
+            onIconClicked={() => console.log('clicked')}
+            actions={[
+              {title: 'Bla',icon:require('./src/images/ic_search_black_24dp.png'), show: 'always'},
+              {title: 'Settings', show: 'never'}]}
+            style={styles.toolbar}
+            title='אספן התקליטים'/>
+
     );
   }
 }
@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  toolbar: {
+    backgroundColor: '#E9EAED',
+    height: 56,
+  }
 });
 
 AppRegistry.registerComponent('collectormobile', () => collectormobile);
