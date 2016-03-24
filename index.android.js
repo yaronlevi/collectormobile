@@ -9,14 +9,26 @@ import React, {
   StyleSheet,
   Text,
   View,
-  ToolbarAndroid
+  ToolbarAndroid,
+  DrawerLayoutAndroid
 } from 'react-native';
 
 class collectormobile extends Component {
   render() {
+
+    var drawerMenu = (
+      <View style={{flex: 1, backgroundColor: '#fff'}}>
+      <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I am in the Drawer!</Text></View>
+    );
+
     return (
 
-      <ToolbarAndroid
+      <DrawerLayoutAndroid
+          drawerWidth={300}
+          drawerPosition={DrawerLayoutAndroid.positions.Left}
+          renderNavigationView={() => drawerMenu}>
+
+          <ToolbarAndroid
             rtl={true}
             navIcon={require('./src/images/ic_menu_black_24dp.png')}
             onIconClicked={() => console.log('clicked')}
@@ -25,6 +37,8 @@ class collectormobile extends Component {
               {title: 'Settings', show: 'never'}]}
             style={styles.toolbar}
             title='אספן התקליטים'/>
+
+            </DrawerLayoutAndroid>
 
     );
   }
