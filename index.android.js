@@ -17,6 +17,7 @@ class collectormobile extends Component {
     return (
 
       <ToolbarAndroid
+            rtl={true}
             navIcon={require('./src/images/ic_menu_black_24dp.png')}
             onIconClicked={() => console.log('clicked')}
             actions={[
