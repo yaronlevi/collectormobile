@@ -10,11 +10,49 @@ import React, {
   Text,
   View,
   ToolbarAndroid,
-  DrawerLayoutAndroid
+  DrawerLayoutAndroid,
+  ListView
 } from 'react-native';
 
+import Dimensions from 'Dimensions';
+
 class collectormobile extends Component {
+
+  constructor(props){
+    super(props);
+
+    var cellMargin = 3;
+    var screenWidth = Dimensions.get('window').width;
+    var cellWidth = (screenWidth - 4 * cellMargin) / 2;
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    this.state = {
+      dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row 3', 'row 4','row 5', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2']),
+      cellWidth: cellWidth,
+      cellMargin: cellMargin
+    };
+  }
+
+  renderRowCell(rowData){
+    return <View style={this.getCellStyle()}><Text>{rowData}</Text><Text>{this.state.cellWidth}</Text></View>
+  }
+
+  getCellStyle(){
+    return{
+        backgroundColor: 'red',
+        margin:this.state.cellMargin,
+        height:this.state.cellWidth,
+        width:this.state.cellWidth
+    };
+  }
+
+  onEndReached(){
+    console.log("onEndReached");
+  }
+
   render() {
+
+
 
     var drawerMenu = (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -38,6 +76,13 @@ class collectormobile extends Component {
             style={styles.toolbar}
             title='אספן התקליטים'/>
 
+            <ListView
+            contentContainerStyle={styles.list}
+            dataSource={this.state.dataSource}
+            onEndReached={this.onEndReached}
+            pageSize=2
+            renderRow={(rowData) => this.renderRowCell(rowData)}/>
+
             </DrawerLayoutAndroid>
 
     );
@@ -45,6 +90,17 @@ class collectormobile extends Component {
 }
 
 const styles = StyleSheet.create({
+  list: {
+        justifyContent: 'center',
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    },
+    item: {
+        backgroundColor: 'red',
+        margin:5,
+        height:170,
+        width:170
+    },
   container: {
     flex: 1,
     justifyContent: 'center',
