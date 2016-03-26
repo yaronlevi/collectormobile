@@ -16,6 +16,8 @@ import React, {
 
 import Dimensions from 'Dimensions';
 
+var dummyData = ['1', '2', '3', '4','5', '6','7', '8','9', '10','11', '12','13', '14','15', '16'];
+
 class collectormobile extends Component {
 
   constructor(props){
@@ -27,7 +29,8 @@ class collectormobile extends Component {
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row 3', 'row 4','row 5', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2','row 1', 'row 2']),
+      listViewDataSrc: ds,
+      dataSource: ds.cloneWithRows(dummyData),
       cellWidth: cellWidth,
       cellMargin: cellMargin
     };
@@ -46,12 +49,28 @@ class collectormobile extends Component {
     };
   }
 
+  addMoreDummyData(){
+
+    var dummyLen = dummyData.length;
+    var extra = dummyLen + 6;
+
+    for(var i = dummyLen; i <= extra ;i++)
+    {
+      var newInd = i + 1;
+      dummyData.push(newInd.toString());
+    }
+  }
+
   onEndReached(){
     console.log("onEndReached");
+    this.addMoreDummyData();
+    this.setState({dataSource:this.state.listViewDataSrc.cloneWithRows(dummyData)});
   }
 
   render() {
 
+
+    console.log("in render");
 
 
     var drawerMenu = (
@@ -79,8 +98,8 @@ class collectormobile extends Component {
             <ListView
             contentContainerStyle={styles.list}
             dataSource={this.state.dataSource}
-            onEndReached={this.onEndReached}
-            pageSize=2
+            onEndReached={this.onEndReached.bind(this)}
+            pageSize={2}
             renderRow={(rowData) => this.renderRowCell(rowData)}/>
 
             </DrawerLayoutAndroid>
