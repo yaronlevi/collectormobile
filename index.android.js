@@ -9,6 +9,7 @@ import React, {
   StyleSheet,
   Text,
   View,
+  Image,
   ToolbarAndroid,
   DrawerLayoutAndroid,
   ListView
@@ -37,12 +38,14 @@ class collectormobile extends Component {
   }
 
   renderRowCell(rowData){
-    return <View style={this.getCellStyle()}><Text>{rowData}</Text><Text>{this.state.cellWidth}</Text></View>
+    var num = rowData % 7;
+    var url = `https://meetz.blob.core.windows.net/stam/${num}.png`;
+    return <Image source={{uri: url}} style={this.getCellStyle()} />
+    // return <View style={this.getCellStyle()}><Text>{rowData}</Text><Text>{this.state.cellWidth}</Text></View>
   }
 
   getCellStyle(){
     return{
-        backgroundColor: 'red',
         margin:this.state.cellMargin,
         height:this.state.cellWidth,
         width:this.state.cellWidth
