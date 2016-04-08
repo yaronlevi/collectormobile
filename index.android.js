@@ -15,6 +15,7 @@ import React, {
   ListView
 } from 'react-native';
 
+import reducers from './src/reducers';
 import Dimensions from 'Dimensions';
 
 var dummyData = ['1', '2', '3', '4','5', '6','7', '8','9', '10','11', '12','13', '14','15', '16'];
