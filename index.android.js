@@ -17,8 +17,15 @@ import React, {
 
 import reducers from './src/reducers';
 import Dimensions from 'Dimensions';
+import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware, bindActionCreators } from 'redux';
+import promise from 'redux-promise';
+import { fetchAlbums } from './src/actions/index';
 
 var dummyData = ['1', '2', '3', '4','5', '6','7', '8','9', '10','11', '12','13', '14','15', '16'];
+
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const store = createStoreWithMiddleware(reducers);
 
 class collectormobile extends Component {
 
@@ -73,10 +80,6 @@ class collectormobile extends Component {
 
   render() {
 
-
-    console.log("in render");
-
-
     var drawerMenu = (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I am in the Drawer!</Text></View>
@@ -84,11 +87,11 @@ class collectormobile extends Component {
 
     return (
 
-      <DrawerLayoutAndroid
+      <Provider store={store}>
+        <DrawerLayoutAndroid
           drawerWidth={300}
           drawerPosition={DrawerLayoutAndroid.positions.Left}
           renderNavigationView={() => drawerMenu}>
-
           <ToolbarAndroid
             rtl={true}
             navIcon={require('./src/images/ic_menu_black_24dp.png')}
@@ -98,16 +101,14 @@ class collectormobile extends Component {
               {title: 'Settings', show: 'never'}]}
             style={styles.toolbar}
             title='אספן התקליטים'/>
-
-            <ListView
+          <ListView
             contentContainerStyle={styles.list}
             dataSource={this.state.dataSource}
             onEndReached={this.onEndReached.bind(this)}
             pageSize={2}
             renderRow={(rowData) => this.renderRowCell(rowData)}/>
-
-            </DrawerLayoutAndroid>
-
+        </DrawerLayoutAndroid>
+      </Provider>
     );
   }
 }
@@ -145,5 +146,9 @@ const styles = StyleSheet.create({
     height: 56,
   }
 });
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({fetchAlbums}, dispatch);
+}
 
 AppRegistry.registerComponent('collectormobile', () => collectormobile);
