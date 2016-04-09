@@ -12,10 +12,11 @@ import React, {
 import Dimensions from 'Dimensions';
 import { fetchAlbums } from './actions/index';
 import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 var dummyData = ['1', '2', '3', '4','5', '6','7', '8','9', '10','11', '12','13', '14','15', '16'];
 
-export default class App extends Component {
+class App extends Component {
 
   constructor(props){
     super(props);
@@ -62,6 +63,7 @@ export default class App extends Component {
 
   onEndReached(){
     console.log("onEndReached");
+    this.props.fetchAlbums();
     this.addMoreDummyData();
     this.setState({dataSource:this.state.listViewDataSrc.cloneWithRows(dummyData)});
   }
@@ -101,6 +103,8 @@ export default class App extends Component {
 function mapDispatchToProps(dispatch){
   return bindActionCreators({fetchAlbums}, dispatch);
 }
+
+export default connect(null,mapDispatchToProps)(App);
 
 const styles = StyleSheet.create({
   list: {
