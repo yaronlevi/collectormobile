@@ -10,7 +10,7 @@ import React, {
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
-import { fetchAlbums } from './actions/index';
+import { fetchAlbums, initAlbumsListProps } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -23,52 +23,32 @@ class App extends Component {
 
     var cellMargin = 3;
     var screenWidth = Dimensions.get('window').width;
-    var cellWidth = (screenWidth - 4 * cellMargin) / 2;
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-    this.state = {
-      listViewDataSrc: ds,
-      dataSource: ds.cloneWithRows(dummyData),
-      cellWidth: cellWidth,
-      cellMargin: cellMargin
-    };
+    initAlbumsListProps(cellMargin, screenWidth);
   }
 
   renderRowCell(rowData){
     var num = rowData % 7;
     var url = `https://meetz.blob.core.windows.net/stam/${num}.png`;
     return <Image source={{uri: url}} style={this.getCellStyle()} />
-    // return <View style={this.getCellStyle()}><Text>{rowData}</Text><Text>{this.state.cellWidth}</Text></View>
   }
 
   getCellStyle(){
     return{
-        margin:this.state.cellMargin,
-        height:this.state.cellWidth,
-        width:this.state.cellWidth
+        margin:this.state.albumsListParams.cellMargin,
+        height:this.state.albumsListParams.cellWidth,
+        width:this.state.albumsListParams.cellWidth
     };
-  }
-
-  addMoreDummyData(){
-
-    var dummyLen = dummyData.length;
-    var extra = dummyLen + 6;
-
-    for(var i = dummyLen; i <= extra ;i++)
-    {
-      var newInd = i + 1;
-      dummyData.push(newInd.toString());
-    }
   }
 
   onEndReached(){
     console.log("onEndReached");
     this.props.fetchAlbums();
-    this.addMoreDummyData();
-    this.setState({dataSource:this.state.listViewDataSrc.cloneWithRows(dummyData)});
+    //this.setState({dataSource:this.state.listViewDataSrc.cloneWithRows(dummyData)});
   }
 
   render(){
+
+    const dataSource = this.state.dataSource.cloneWithRows(this.state.albums);
 
     var drawerMenu = (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -91,7 +71,7 @@ class App extends Component {
           title='אספן התקליטים'/>
         <ListView
           contentContainerStyle={styles.list}
-          dataSource={this.state.dataSource}
+          dataSource={dataSource}
           onEndReached={this.onEndReached.bind(this)}
           pageSize={2}
           renderRow={(rowData) => this.renderRowCell(rowData)}/>
@@ -104,7 +84,13 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators({fetchAlbums}, dispatch);
 }
 
-export default connect(null,mapDispatchToProps)(App);
+function mapStateToProps(state){
+  console.log("state is:");
+  console.log(state);
+  return state;
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
 
 const styles = StyleSheet.create({
   list: {

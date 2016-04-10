@@ -1,17 +1,16 @@
 import {FETCH_ALBUMS} from '../actions/index';
 
-const INITIAL_STATE = { albums:[] };
+const INITIAL_STATE = [];
 
 export default function(state = INITIAL_STATE, action){
 
-  console.log(`in reduce albums. action.type is:${action.type}`)
+  console.log(`in albums reducer`);
 
   switch(action.type){
 
     case FETCH_ALBUMS:
-    var newArr = state.albums.concat(action.payload.data);
-    var newState = {albums:newArr};
-    return newState;
+    var newArr = state.concat(action.payload.data);
+    return newArr;
 
     default:
     return state;
