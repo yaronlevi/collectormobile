@@ -4,8 +4,6 @@ const INITIAL_STATE = [];
 
 export default function(state = INITIAL_STATE, action){
 
-  console.log(`in albums reducer`);
-
   switch(action.type){
 
     case FETCH_ALBUMS:

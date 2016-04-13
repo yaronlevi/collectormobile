@@ -3,11 +3,13 @@ import React, {
   ListView
 } from 'react-native';
 
-var INITIAL_STATE = {dataSource : null, cellMargin : null, cellWidth : null};
+var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+var INITIAL_STATE = {dataSource : dataSource, cellMargin : null, cellWidth : null};
 
 export default function(state = INITIAL_STATE, action){
 
-  console.log(`in paramreducer`);
+  console.log("in reducer params:");
+  console.log(action.type);
 
   switch(action.type){
 
@@ -15,7 +17,6 @@ export default function(state = INITIAL_STATE, action){
     var cellMargin = action.payload.cellMargin;
     var screenWidth = action.payload.screenWidth;
     var cellWidth = (screenWidth - 4 * cellMargin) / 2;
-    var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {dataSource : dataSource, cellMargin : cellMargin, cellWidth : cellWidth};
 
     default:

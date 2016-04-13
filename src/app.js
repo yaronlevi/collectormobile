@@ -14,8 +14,6 @@ import { fetchAlbums, initAlbumsListProps } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-var dummyData = ['1', '2', '3', '4','5', '6','7', '8','9', '10','11', '12','13', '14','15', '16'];
-
 class App extends Component {
 
   constructor(props){
@@ -23,32 +21,31 @@ class App extends Component {
 
     var cellMargin = 3;
     var screenWidth = Dimensions.get('window').width;
-    initAlbumsListProps(cellMargin, screenWidth);
+    this.props.initAlbumsListProps(cellMargin, screenWidth);
+    this.props.fetchAlbums();
   }
 
   renderRowCell(rowData){
-    var num = rowData % 7;
-    var url = `https://meetz.blob.core.windows.net/stam/${num}.png`;
+    var url = rowData.ImageUrl;
     return <Image source={{uri: url}} style={this.getCellStyle()} />
   }
 
   getCellStyle(){
     return{
-        margin:this.state.albumsListParams.cellMargin,
-        height:this.state.albumsListParams.cellWidth,
-        width:this.state.albumsListParams.cellWidth
+        margin:this.props.albumsListParams.cellMargin,
+        height:this.props.albumsListParams.cellWidth,
+        width:this.props.albumsListParams.cellWidth
     };
   }
 
   onEndReached(){
-    console.log("onEndReached");
     this.props.fetchAlbums();
-    //this.setState({dataSource:this.state.listViewDataSrc.cloneWithRows(dummyData)});
   }
 
   render(){
 
-    const dataSource = this.state.dataSource.cloneWithRows(this.state.albums);
+    const dataSource = this.props.albumsListParams.dataSource;
+    var ds = dataSource.cloneWithRows(this.props.albums);
 
     var drawerMenu = (
       <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -71,7 +68,7 @@ class App extends Component {
           title='אספן התקליטים'/>
         <ListView
           contentContainerStyle={styles.list}
-          dataSource={dataSource}
+          dataSource={ds}
           onEndReached={this.onEndReached.bind(this)}
           pageSize={2}
           renderRow={(rowData) => this.renderRowCell(rowData)}/>
@@ -81,12 +78,10 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchAlbums}, dispatch);
+  return bindActionCreators({fetchAlbums,initAlbumsListProps}, dispatch);
 }
 
 function mapStateToProps(state){
-  console.log("state is:");
-  console.log(state);
   return state;
 }
 
