@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
 
     var cellMargin = 3;
@@ -25,25 +25,25 @@ class App extends Component {
     this.props.fetchAlbums();
   }
 
-  renderRowCell(rowData){
+  renderRowCell(rowData) {
     var url = rowData.ImageUrl;
-    return <Image source={{uri: url}} style={this.getCellStyle()} />
+    return <Image source={{ uri: url }} style={this.getCellStyle() } />
   }
 
-  getCellStyle(){
-    return{
-        margin:this.props.albumsListParams.cellMargin,
-        height:this.props.albumsListParams.cellWidth,
-        width:this.props.albumsListParams.cellWidth
+  getCellStyle() {
+    return {
+      margin: this.props.albumsListParams.cellMargin,
+      height: this.props.albumsListParams.cellWidth,
+      width: this.props.albumsListParams.cellWidth
     };
   }
 
-  onEndReached(){
+  onEndReached() {
     this.props.fetchAlbums();
   }
 
-  render(){
-    
+  render() {
+
     var x = 3;
 
 
@@ -51,57 +51,57 @@ class App extends Component {
     var ds = dataSource.cloneWithRows(this.props.albums);
 
     var drawerMenu = (
-      <View style={{flex: 1, backgroundColor: '#fff'}}>
-        <Text style={{margin: 10, fontSize: 15, textAlign: 'left'}}>I am in the Drawer!</Text></View>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>I am in the Drawer!</Text></View>
     );
 
-    return(
+    return (
       <DrawerLayoutAndroid
         drawerWidth={300}
         drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => drawerMenu}>
         <ToolbarAndroid
           rtl={true}
-          navIcon={require('./images/ic_menu_black_24dp.png')}
-          onIconClicked={() => console.log('clicked')}
+          navIcon={require('./images/ic_menu_black_24dp.png') }
+          onIconClicked={() => console.log('clicked') }
           actions={[
-            {title: 'Bla',icon:require('./images/ic_search_black_24dp.png'), show: 'always'},
-            {title: 'Settings', show: 'never'}]}
+            { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
+            { title: 'Settings', show: 'never' }]}
           style={styles.toolbar}
           title='אספן התקליטים'/>
         <ListView
           contentContainerStyle={styles.list}
           dataSource={ds}
-          onEndReached={this.onEndReached.bind(this)}
+          onEndReached={this.onEndReached.bind(this) }
           pageSize={2}
-          renderRow={(rowData) => this.renderRowCell(rowData)}/>
+          renderRow={(rowData) => this.renderRowCell(rowData) }/>
       </DrawerLayoutAndroid>
     )
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchAlbums,initAlbumsListProps}, dispatch);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchAlbums, initAlbumsListProps }, dispatch);
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 const styles = StyleSheet.create({
   list: {
-        justifyContent: 'center',
-        flexDirection: 'row',
-        flexWrap: 'wrap'
-    },
-    item: {
-        backgroundColor: 'red',
-        margin:5,
-        height:170,
-        width:170
-    },
+    justifyContent: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  item: {
+    backgroundColor: 'red',
+    margin: 5,
+    height: 170,
+    width: 170
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
