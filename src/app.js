@@ -43,6 +43,9 @@ class App extends Component {
   }
 
   render(){
+    
+    var x = 3;
+
 
     const dataSource = this.props.albumsListParams.dataSource;
     var ds = dataSource.cloneWithRows(this.props.albums);
