@@ -6,13 +6,15 @@ import React, {
   Image,
   ToolbarAndroid,
   DrawerLayoutAndroid,
-  ListView
+  ListView,
+  TouchableHighlight
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
 import { fetchAlbums, initAlbumsListProps } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {Actions} from 'react-native-router-flux'
 
 class App extends Component {
 
@@ -27,7 +29,11 @@ class App extends Component {
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
-    return <Image source={{ uri: url }} style={this.getCellStyle() } />
+    return (
+      <TouchableHighlight onPress={ () => Actions.stam()}>
+        <Image source={{ uri: url }} style={this.getCellStyle() } />
+      </TouchableHighlight>
+    )
   }
 
   getCellStyle() {
