@@ -50,35 +50,42 @@ class App extends Component {
 
   render() {
 
-    var x = 3;
-
-
     const dataSource = this.props.albumsListParams.dataSource;
     var ds = dataSource.cloneWithRows(this.props.albums);
 
     var drawerMenu = (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>I am in the Drawer!</Text></View>
+        <TouchableOpacity onPress={()=>{this.refs['DRAWER_REF'].closeDrawer();Actions.settings()}}>
+          <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>Settings</Text>
+        </TouchableOpacity>
+      </View>
     );
 
     return (
-      <View style={styles.containerView}>
-        <ToolbarAndroid
-          rtl={true}
-          navIcon={require('./images/ic_menu_black_24dp.png') }
-          actions={[
-            { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
-            { title: 'Settings', show: 'never' }]}
-          style={styles.toolbar}
-          title='אספן התקליטים'/>
-        <ListView
-          enableEmptySections={true}
-          contentContainerStyle={styles.list}
-          dataSource={ds}
-          onEndReached={this.onEndReached.bind(this) }
-          pageSize={2}
-          renderRow={(rowData) => this.renderRowCell(rowData) }/>
-      </View>
+      <DrawerLayoutAndroid
+        ref={'DRAWER_REF'}
+        drawerWidth={300}
+        drawerPosition={DrawerLayoutAndroid.positions.Left}
+        renderNavigationView={() => drawerMenu}>
+        <View style={styles.containerView}>
+          <ToolbarAndroid
+            rtl={true}
+            navIcon={require('./images/ic_menu_black_24dp.png') }
+            onIconClicked={() => { this.refs['DRAWER_REF'].openDrawer() } }
+            actions={[
+              { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
+              { title: 'Settings', show: 'never' }]}
+            style={styles.toolbar}
+            title='אספן התקליטים'/>
+          <ListView
+            enableEmptySections={true}
+            contentContainerStyle={styles.list}
+            dataSource={ds}
+            onEndReached={this.onEndReached.bind(this) }
+            pageSize={2}
+            renderRow={(rowData) => this.renderRowCell(rowData) }/>
+        </View>
+      </DrawerLayoutAndroid>
     )
   }
 }

@@ -10,6 +10,7 @@ import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import { Router, Scene, Modal, Actions } from 'react-native-router-flux';
 import ScreenAlbumInfo from './src/screenAlbumInfo';
+import ScreenSettings from './src/screenSettings';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -23,6 +24,7 @@ class collectormobile extends Component {
           <Scene key="root">
             <Scene key="mainScreen" component={App} hideNavBar={true} initial={true}/>
             <Scene key="albumInfo" component={ScreenAlbumInfo} hideNavBar={true}  />
+            <Scene key="settings" component={ScreenSettings} hideNavBar={true}  />
           </Scene>
         </RouterWithRedux>
       </Provider>
