@@ -65,11 +65,10 @@ class App extends Component {
       <DrawerLayoutAndroid
         ref={'DRAWER_REF'}
         drawerWidth={300}
-        drawerPosition={DrawerLayoutAndroid.positions.Left}
         renderNavigationView={() => drawerMenu}>
         <View style={styles.containerView}>
           <ToolbarAndroid
-            rtl={true}
+            rtl={false}
             navIcon={require('./images/ic_menu_black_24dp.png') }
             onIconClicked={() => { this.refs['DRAWER_REF'].openDrawer() } }
             actions={[

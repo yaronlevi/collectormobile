@@ -8,7 +8,6 @@ export default class ScreenAlbumInfo extends React.Component {
         return (
             <View>
                 <ToolbarAndroid
-                    rtl={true}
                     navIcon={require('./images/ic_arrow_back_black_24dp.png') }      
                     onIconClicked={Actions.pop}              
                     actions={[
