@@ -8,9 +8,6 @@ var INITIAL_STATE = {dataSource : dataSource, cellMargin : null, cellWidth : nul
 
 export default function(state = INITIAL_STATE, action){
 
-  console.log("in reducer params:");
-  console.log(action.type);
-
   switch(action.type){
 
     case INIT_ALBUMS_LIST_PROPS:

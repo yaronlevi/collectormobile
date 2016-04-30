@@ -19,12 +19,12 @@ class collectormobile extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router>
+        <RouterWithRedux>
           <Scene key="root">
             <Scene key="mainScreen" component={App} hideNavBar={true} initial={true}/>
-            <Scene key="albumInfo" component={ScreenAlbumInfo} hideNavBar={true} />
+            <Scene key="albumInfo" component={ScreenAlbumInfo} hideNavBar={true}  />
           </Scene>
-        </Router>
+        </RouterWithRedux>
       </Provider>
     );
   }

@@ -7,7 +7,6 @@ import React, {
   ToolbarAndroid,
   DrawerLayoutAndroid,
   ListView,
-  TouchableHighlight,
   TouchableOpacity
 } from 'react-native';
 
@@ -31,9 +30,9 @@ class App extends Component {
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
     return (
-     
+      <TouchableOpacity onPress={Actions.albumInfo}>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
-      
+      </TouchableOpacity>
     )
   }
 
@@ -63,11 +62,10 @@ class App extends Component {
     );
 
     return (
-      <View>
+      <View style={styles.containerView}>
         <ToolbarAndroid
           rtl={true}
           navIcon={require('./images/ic_menu_black_24dp.png') }
-          onActionSelected={() => Actions.albumInfo() }
           actions={[
             { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
             { title: 'Settings', show: 'never' }]}
@@ -125,6 +123,9 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     backgroundColor: '#E9EAED',
-    height: 56,
+    height: 56
+  },
+  containerView: {
+    flex: 1 //Without this the listview won't scroll. It is like setting the height to 100%
   }
 });
