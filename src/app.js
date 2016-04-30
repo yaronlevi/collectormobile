@@ -7,7 +7,8 @@ import React, {
   ToolbarAndroid,
   DrawerLayoutAndroid,
   ListView,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
@@ -30,9 +31,9 @@ class App extends Component {
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
     return (
-      <TouchableHighlight onPress={ () => Actions.stam()}>
+     
         <Image source={{ uri: url }} style={this.getCellStyle() } />
-      </TouchableHighlight>
+      
     )
   }
 
@@ -62,26 +63,24 @@ class App extends Component {
     );
 
     return (
-      <DrawerLayoutAndroid
-        drawerWidth={300}
-        drawerPosition={DrawerLayoutAndroid.positions.Left}
-        renderNavigationView={() => drawerMenu}>
+      <View>
         <ToolbarAndroid
           rtl={true}
           navIcon={require('./images/ic_menu_black_24dp.png') }
-          onIconClicked={() => console.log('clicked') }
+          onActionSelected={() => Actions.albumInfo() }
           actions={[
             { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
             { title: 'Settings', show: 'never' }]}
           style={styles.toolbar}
           title='אספן התקליטים'/>
         <ListView
+          enableEmptySections={true}
           contentContainerStyle={styles.list}
           dataSource={ds}
           onEndReached={this.onEndReached.bind(this) }
           pageSize={2}
           renderRow={(rowData) => this.renderRowCell(rowData) }/>
-      </DrawerLayoutAndroid>
+      </View>
     )
   }
 }

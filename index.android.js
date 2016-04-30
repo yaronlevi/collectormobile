@@ -9,7 +9,7 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise';
 import { Router, Scene, Modal, Actions } from 'react-native-router-flux';
-import MainScreen from './src/mainScreen';
+import ScreenAlbumInfo from './src/screenAlbumInfo';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 const store = createStoreWithMiddleware(reducers);
@@ -19,13 +19,12 @@ class collectormobile extends Component {
   render() {
     return (
       <Provider store={store}>
-        <RouterWithRedux>
-          <Scene key="yaron" component={App} initial={true}>
-            <Scene key="modal" component={Modal} >
-              <Scene key="stam" component={MainScreen}  />
-            </Scene>
+        <Router>
+          <Scene key="root">
+            <Scene key="mainScreen" component={App} hideNavBar={true} initial={true}/>
+            <Scene key="albumInfo" component={ScreenAlbumInfo} hideNavBar={true} />
           </Scene>
-        </RouterWithRedux>
+        </Router>
       </Provider>
     );
   }

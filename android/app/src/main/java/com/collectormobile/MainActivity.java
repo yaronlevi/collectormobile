@@ -7,17 +7,7 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
-import android.util.LayoutDirection;
-import android.view.View;
-import android.os.Bundle;
-
 public class MainActivity extends ReactActivity {
-
-  @Override
-  protected void onCreate (Bundle savedInstanceState){
-    super.onCreate(savedInstanceState);
-    getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-  }
 
     /**
      * Returns the name of the main component registered from JavaScript.

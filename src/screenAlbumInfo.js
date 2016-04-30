@@ -1,12 +1,12 @@
 import React, {View, Text, Component} from "react-native";
 
-export default class MainScreen extends React.Component {
+export default class ScreenAlbumInfo extends React.Component {
 
     render() {
         
         return (
             <View>
-                <Text>Hello</Text>
+                <Text>Helloo</Text>
             </View>
         )
     }
