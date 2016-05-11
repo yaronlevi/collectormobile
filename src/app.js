@@ -15,6 +15,7 @@ import { fetchAlbums, initAlbumsListProps } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
+import ScreenSettings from './screenSettings';
 
 class App extends Component {
 
@@ -29,8 +30,9 @@ class App extends Component {
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
+    url = url.replace(".jpg","_thumbnail.jpg");
     return (
-      <TouchableOpacity onPress={Actions.albumInfo}>
+      <TouchableOpacity onPress={()=>{this.navigateToAlbumInfo()}}>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
       </TouchableOpacity>
     )
@@ -48,6 +50,19 @@ class App extends Component {
     this.props.fetchAlbums();
   }
 
+  navigateToAlbumInfo(){
+    this.props.navigator.push({
+      component: ScreenSettings
+    });
+  }
+
+  navigateToSettings(){
+    this.refs['DRAWER_REF'].closeDrawer();
+    this.props.navigator.push({
+      component: ScreenSettings
+    });
+  }
+
   render() {
 
     const dataSource = this.props.albumsListParams.dataSource;
@@ -55,7 +70,7 @@ class App extends Component {
 
     var drawerMenu = (
       <View style={{ flex: 1, backgroundColor: '#fff' }}>
-        <TouchableOpacity onPress={()=>{this.refs['DRAWER_REF'].closeDrawer();Actions.settings()}}>
+        <TouchableOpacity onPress={()=>{this.navigateToSettings()}}>
           <Text style={{ margin: 10, fontSize: 15, textAlign: 'left' }}>Settings</Text>
         </TouchableOpacity>
       </View>
@@ -68,14 +83,13 @@ class App extends Component {
         renderNavigationView={() => drawerMenu}>
         <View style={styles.containerView}>
           <ToolbarAndroid
-            rtl={false}
             navIcon={require('./images/ic_menu_black_24dp.png') }
             onIconClicked={() => { this.refs['DRAWER_REF'].openDrawer() } }
             actions={[
               { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
               { title: 'Settings', show: 'never' }]}
             style={styles.toolbar}
-            title='אספן התקליטים'/>
+            title='אספן'/>
           <ListView
             enableEmptySections={true}
             contentContainerStyle={styles.list}

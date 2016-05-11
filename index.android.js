@@ -1,6 +1,7 @@
 import React, {
   AppRegistry,
-  Component
+  Component,
+  Navigator
 } from 'react-native';
 
 import App from './src/app';
@@ -17,16 +18,24 @@ const store = createStoreWithMiddleware(reducers);
 const RouterWithRedux = connect()(Router);
 
 class collectormobile extends Component {
+  
+  renderScene(route, navigator){
+    return <route.component navigator={navigator} {...route.passProps}/>
+  }
+  
   render() {
     return (
       <Provider store={store}>
-        <RouterWithRedux>
-          <Scene key="root">
-            <Scene key="mainScreen" component={App} hideNavBar={true} initial={true}/>
-            <Scene key="albumInfo" component={ScreenAlbumInfo} hideNavBar={true}  />
-            <Scene key="settings" component={ScreenSettings} hideNavBar={true}  />
-          </Scene>
-        </RouterWithRedux>
+        <Navigator
+        renderScene={this.renderScene} 
+        initialRoute={{component:App}}
+        configureScene={(route) => {
+          if (route.sceneConfig) {
+            return route.sceneConfig;
+          }
+          return Navigator.SceneConfigs.FadeAndroid;
+        }}
+        />        
       </Provider>
     );
   }
