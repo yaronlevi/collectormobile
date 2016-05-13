@@ -30,7 +30,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    var cellMargin = 3;
+    var cellMargin = 10;
     var screenWidth = Dimensions.get('window').width;
     this.props.initAlbumsListProps(cellMargin, screenWidth);
     this.props.fetchAlbums();
@@ -40,17 +40,25 @@ class App extends Component {
     var url = rowData.ImageUrl;
     url = url.replace(".jpg", "_thumbnail.jpg");
     return (
-      <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } }>
+      <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity()}>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
-      </TouchableOpacity>
+      </TouchableOpacity>  
+     
     )
+  }
+  
+  getStyleTouchableOpacity(){
+    return {
+      margin: this.props.albumsListParams.cellMargin,
+      elevation:5,
+      backgroundColor:"white" //Without this the elevation is not shown for some reason.      
+    }
   }
 
   getCellStyle() {
     return {
-      margin: this.props.albumsListParams.cellMargin,
       height: this.props.albumsListParams.cellWidth,
-      width: this.props.albumsListParams.cellWidth
+      width: this.props.albumsListParams.cellWidth,
     };
   }
 
@@ -97,7 +105,7 @@ class App extends Component {
               { title: 'Bla', icon: require('./images/ic_search_white_24dp.png'), show: 'always' },
               { title: 'Settings', show: 'never' }]}
             style={styles.toolbar}
-            title='אספן'
+            title='אספן התקליטים'
             titleColor='white'
             subtitleColor='white'/>
           <ScrollableTabView
@@ -138,18 +146,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap'
-  },
-  item: {
-    backgroundColor: 'red',
-    margin: 5,
-    height: 170,
-    width: 170
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
