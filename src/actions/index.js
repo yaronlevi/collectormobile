@@ -2,6 +2,7 @@ import axios from 'axios'
 
 export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const INIT_ALBUMS_LIST_PROPS = 'INIT_ALBUMS_LIST_PROPS';
+export const CHANGE_SWITCH = 'CHANGE_SWITCH';
 
 const url = "http://collector.co.il/SalesBoard/GetSalesForMobile?page=1";
 
@@ -19,5 +20,12 @@ export function initAlbumsListProps(cellMargin, screenWidth){
   return {
     type:INIT_ALBUMS_LIST_PROPS,
     payload: {cellMargin, screenWidth}
+  }
+}
+
+export function setSwitch(switchState){
+  return {
+    type: CHANGE_SWITCH,
+    payload: switchState
   }
 }

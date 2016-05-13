@@ -1,8 +1,6 @@
 <resources>
-
-    <!-- Base application theme. -->
+    <color name="white">#ffffff</color>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
-
 </resources>
