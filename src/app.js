@@ -18,6 +18,8 @@ import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
 import ScreenSettings from './screenSettings';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
   getTheme
@@ -35,23 +37,23 @@ class App extends Component {
     this.props.initAlbumsListProps(cellMargin, screenWidth);
     this.props.fetchAlbums();
   }
-  
+
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
     url = url.replace(".jpg", "_thumbnail.jpg");
     return (
-      <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity()}>
+      <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
-      </TouchableOpacity>  
-     
+      </TouchableOpacity>
+
     )
   }
-  
-  getStyleTouchableOpacity(){
+
+  getStyleTouchableOpacity() {
     return {
       margin: this.props.albumsListParams.cellMargin,
-      elevation:5,
-      backgroundColor:"white" //Without this the elevation is not shown for some reason.      
+      elevation: 3,
+      backgroundColor: "white" //Without this the elevation is not shown for some reason.      
     }
   }
 
@@ -114,17 +116,26 @@ class App extends Component {
             tabBarActiveTextColor="white">
             <ListView
               style={styles.albumsListView}
-              tabLabel="אלבומים"
+              tabLabel="הוצאות למכירה"
               enableEmptySections={true}
               contentContainerStyle={styles.list}
               dataSource={ds}
               onEndReached={this.onEndReached.bind(this) }
               pageSize={2}
               renderRow={(rowData) => this.renderRowCell(rowData) }/>
-            <View tabLabel="למכירה">
-              <Switch value={this.props.uiState.switch} onValueChange={(value) => this.props.setSwitch(value)} />
+            <View tabLabel="ההוצאות שלי">
+              <Switch value={this.props.uiState.switch} onValueChange={(value) => this.props.setSwitch(value) } />
+              <Icon name="rocket" size={30} color="#900" />
             </View>
           </ScrollableTabView>
+          <ActionButton buttonColor="#0288D1">
+            <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => console.log("notes tapped!") }>
+              <Icon name="gavel" style={styles.actionButtonIcon} />
+            </ActionButton.Item>
+            <ActionButton.Item buttonColor='#ffb31a' title="מכירה רגילה" onPress={() => { } }>
+              <Icon name="ils" style={styles.actionButtonIcon} />
+            </ActionButton.Item>
+          </ActionButton>
         </View>
       </DrawerLayoutAndroid>
     )
@@ -166,6 +177,11 @@ const styles = StyleSheet.create({
   },
   albumsListView: {
     paddingTop: 5
-    
+
+  },
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
   }
 });
