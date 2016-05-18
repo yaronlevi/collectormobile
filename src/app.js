@@ -27,6 +27,11 @@ import {
 
 const theme = getTheme();
 
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+} = FBSDK;
+
 class App extends Component {
 
   constructor(props) {
@@ -124,8 +129,19 @@ class App extends Component {
               pageSize={2}
               renderRow={(rowData) => this.renderRowCell(rowData) }/>
             <View tabLabel="ההוצאות שלי">
-              <Switch value={this.props.uiState.switch} onValueChange={(value) => this.props.setSwitch(value) } />
-              <Icon name="rocket" size={30} color="#900" />
+              <LoginButton
+                onLoginFinished={
+                  (error, result) => {
+                    if (error) {
+                      alert("login has error: " + result.error);
+                    } else if (result.isCancelled) {
+                      alert("login is cancelled.");
+                    } else {
+                      alert("login has finished with permissions: " + result.grantedPermissions)
+                    }
+                  }
+                }
+                onLogoutFinished={() => alert("logout.") }/>
             </View>
           </ScrollableTabView>
           <ActionButton buttonColor="#0288D1">
