@@ -17,6 +17,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
 import ScreenSettings from './screenSettings';
+import ScreenLogin from './screenLogin';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -129,19 +130,7 @@ class App extends Component {
               pageSize={2}
               renderRow={(rowData) => this.renderRowCell(rowData) }/>
             <View tabLabel="ההוצאות שלי">
-              <LoginButton
-                onLoginFinished={
-                  (error, result) => {
-                    if (error) {
-                      alert("login has error: " + result.error);
-                    } else if (result.isCancelled) {
-                      alert("login is cancelled.");
-                    } else {
-                      alert("login has finished with permissions: " + result.grantedPermissions)
-                    }
-                  }
-                }
-                onLogoutFinished={() => alert("logout.") }/>
+              <ScreenLogin />
             </View>
           </ScrollableTabView>
           <ActionButton buttonColor="#0288D1">
