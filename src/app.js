@@ -8,7 +8,8 @@ import React, {
   DrawerLayoutAndroid,
   ListView,
   TouchableOpacity,
-  Switch
+  Switch,
+  Modal
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
@@ -30,14 +31,14 @@ const theme = getTheme();
 
 const FBSDK = require('react-native-fbsdk');
 const {
-  LoginButton,
+  LoginManager,
+  AccessToken
 } = FBSDK;
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-
     var cellMargin = 10;
     var screenWidth = Dimensions.get('window').width;
     this.props.initAlbumsListProps(cellMargin, screenWidth);
@@ -87,6 +88,38 @@ class App extends Component {
     });
   }
 
+  bidSalePressed() {
+    LoginManager.logInWithReadPermissions(['public_profile']).then(
+      function (result) {
+        if (result.isCancelled) {
+          alert('Login cancelled');
+        }
+        else if (result.error) {
+          alert('Login error' + result.error);
+        }
+        else {
+
+          AccessToken.getCurrentAccessToken().then(            
+            (data) => {
+              //continue here:
+              //Read http://redux.js.org/docs/advanced/AsyncActions.html
+              //And use Modal with some UI state to show loading screen,
+              //while I make a call to the server together to decrypt the facebook access token and
+              //get back the JWT              
+              alert(data.accessToken.toString())
+            })
+        }
+      },
+      function (error) {
+        alert('Login fail with error: ' + error);
+      }
+    );
+  }
+
+  regularSalePressed() {
+
+  }
+
   render() {
 
     const dataSource = this.props.albumsListParams.dataSource;
@@ -134,7 +167,7 @@ class App extends Component {
             </View>
           </ScrollableTabView>
           <ActionButton buttonColor="#0288D1">
-            <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => console.log("notes tapped!") }>
+            <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => this.bidSalePressed() }>
               <Icon name="gavel" style={styles.actionButtonIcon} />
             </ActionButton.Item>
             <ActionButton.Item buttonColor='#ffb31a' title="מכירה רגילה" onPress={() => { } }>
