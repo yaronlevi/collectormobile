@@ -13,7 +13,7 @@ import React, {
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
-import { fetchAlbums, initAlbumsListProps, setSwitch } from './actions/index';
+import { fetchAlbums, initAlbumsListProps, setSwitch, getJwtByFacebook } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
@@ -88,7 +88,7 @@ class App extends Component {
     });
   }
 
-  bidSalePressed() {
+  bidSalePressed(thisContext) {
     LoginManager.logInWithReadPermissions(['public_profile']).then(
       function (result) {
         if (result.isCancelled) {
@@ -101,12 +101,13 @@ class App extends Component {
 
           AccessToken.getCurrentAccessToken().then(            
             (data) => {
+              var faceBookAccessToken = data.accessToken.toString();
+              thisContext.props.getJwtByFacebook(faceBookAccessToken);
               //continue here:
               //Read http://redux.js.org/docs/advanced/AsyncActions.html
               //And use Modal with some UI state to show loading screen,
               //while I make a call to the server together to decrypt the facebook access token and
-              //get back the JWT              
-              alert(data.accessToken.toString())
+              //get back the JWT                        
             })
         }
       },
@@ -167,7 +168,7 @@ class App extends Component {
             </View>
           </ScrollableTabView>
           <ActionButton buttonColor="#0288D1">
-            <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => this.bidSalePressed() }>
+            <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => this.bidSalePressed(this) }>
               <Icon name="gavel" style={styles.actionButtonIcon} />
             </ActionButton.Item>
             <ActionButton.Item buttonColor='#ffb31a' title="מכירה רגילה" onPress={() => { } }>
@@ -181,7 +182,7 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchAlbums, initAlbumsListProps, setSwitch }, dispatch);
+  return bindActionCreators({ fetchAlbums, initAlbumsListProps, setSwitch, getJwtByFacebook }, dispatch);
 }
 
 function mapStateToProps(state) {

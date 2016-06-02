@@ -12,10 +12,13 @@ import promise from 'redux-promise';
 import { Router, Scene, Modal, Actions } from 'react-native-router-flux';
 import ScreenAlbumInfo from './src/screenAlbumInfo';
 import ScreenSettings from './src/screenSettings';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './src/sagas/sagas';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
-const store = createStoreWithMiddleware(reducers);
-const RouterWithRedux = connect()(Router);
+const sagaMiddleware = createSagaMiddleware()
+const store = createStoreWithMiddleware(reducers, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga)
 
 class collectormobile extends Component {
   
