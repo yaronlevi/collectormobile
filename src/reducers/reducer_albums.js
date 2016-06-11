@@ -1,4 +1,4 @@
-import {FETCH_ALBUMS} from '../actions/index';
+import {GET_SALES_FINISHED} from '../actions/index';
 
 const INITIAL_STATE = [];
 
@@ -6,8 +6,8 @@ export default function(state = INITIAL_STATE, action){
 
   switch(action.type){
 
-    case FETCH_ALBUMS:
-    var newArr = state.concat(action.payload.data);
+    case GET_SALES_FINISHED:
+    var newArr = state.concat(action.sales);
     return newArr;
 
     default:

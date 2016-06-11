@@ -13,7 +13,7 @@ import React, {
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
-import { fetchAlbums, initAlbumsListProps, setSwitch, getJwtByFacebook } from './actions/index';
+import { getSales, initAlbumsListProps, setSwitch, getJwtByFacebook } from './actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
@@ -42,11 +42,12 @@ class App extends Component {
     var cellMargin = 10;
     var screenWidth = Dimensions.get('window').width;
     this.props.initAlbumsListProps(cellMargin, screenWidth);
-    this.props.fetchAlbums();
+    this.props.getSales(1);
   }
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
+    console.log(url);
     url = url.replace(".jpg", "_thumbnail.jpg");
     return (
       <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
@@ -72,7 +73,7 @@ class App extends Component {
   }
 
   onEndReached() {
-    this.props.fetchAlbums();
+    this.props.getSales(1);
   }
 
   navigateToAlbumInfo() {
@@ -89,7 +90,7 @@ class App extends Component {
   }
 
   bidSalePressed(thisContext) {
-    LoginManager.logInWithReadPermissions(['public_profile']).then(
+    LoginManager.logInWithReadPermissions(['public_profile','email']).then(
       function (result) {
         if (result.isCancelled) {
           alert('Login cancelled');
@@ -182,7 +183,7 @@ class App extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchAlbums, initAlbumsListProps, setSwitch, getJwtByFacebook }, dispatch);
+  return bindActionCreators({ getSales, initAlbumsListProps, setSwitch, getJwtByFacebook }, dispatch);
 }
 
 function mapStateToProps(state) {

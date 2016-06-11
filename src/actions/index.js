@@ -1,22 +1,15 @@
 import axios from 'axios'
 
-export const FETCH_ALBUMS = 'FETCH_ALBUMS';
 export const INIT_ALBUMS_LIST_PROPS = 'INIT_ALBUMS_LIST_PROPS';
 export const CHANGE_SWITCH = 'CHANGE_SWITCH';
 export const GET_JWT_BY_FACEBOOK = 'GET_JWT_BY_FACEBOOK';
 export const GET_TOKEN_GOOGLE = 'GET_TOKEN_GOOGLE';
+export const GET_SALES = 'GET_SALES';
+export const GET_SALES_FINISHED = 'GET_SALES_FINISHED';
+export const GET_TOKEN_FINISH = 'GET_TOKEN_FINISH';
+export const GET_TOKEN_ERROR = 'GET_TOKEN_ERROR';
 
 const url = "http://collector.co.il/SalesBoard/GetSalesForMobile?page=1";
-
-export function fetchAlbums(){
-
-  const request = axios.get(url);
-
-  return{
-    type:FETCH_ALBUMS,
-    payload:request
-  }
-}
 
 export function initAlbumsListProps(cellMargin, screenWidth){
   return {
@@ -43,5 +36,12 @@ export function getTokenGoogle(googleAccessToken){
   return {
     type: GET_TOKEN_GOOGLE,
     payload: googleAccessToken
+  }
+}
+
+export function getSales(page){
+  return {
+    type: GET_SALES,
+    payload: page
   }
 }
