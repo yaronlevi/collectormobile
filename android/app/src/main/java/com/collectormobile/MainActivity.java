@@ -1,6 +1,7 @@
 package com.collectormobile;
 
 import com.facebook.react.ReactActivity;
+import io.realm.react.RealmReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -48,6 +49,7 @@ public class MainActivity extends ReactActivity {
         mCallbackManager = new CallbackManager.Factory().create();
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RealmReactPackage(),
             new VectorIconsPackage(),
             new FBSDKPackage(mCallbackManager)
         );

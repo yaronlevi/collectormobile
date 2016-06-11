@@ -23,6 +23,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
+import realm from './realm/realm.js';
 
 import {
   getTheme
@@ -43,7 +44,7 @@ class App extends Component {
     var cellMargin = 10;
     var screenWidth = Dimensions.get('window').width;
     this.props.initAlbumsListProps(cellMargin, screenWidth);
-    this.props.getSales(1);
+    this.props.getSales(1); 
   }
 
   renderRowCell(rowData) {
@@ -90,6 +91,7 @@ class App extends Component {
   }
 
   bidSalePressed(thisContext) {
+
     LoginManager.logInWithReadPermissions(['public_profile','email']).then(
       function (result) {
         if (result.isCancelled) {
