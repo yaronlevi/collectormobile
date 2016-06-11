@@ -1,20 +1,20 @@
 import { takeEvery } from 'redux-saga'
 import { put,call } from 'redux-saga/effects'
 import axios from 'axios'
-import {GET_SALES_FINISHED, GET_TOKEN_FINISH, GET_TOKEN_ERROR, GET_JWT_BY_FACEBOOK} from '../actions/index';
+import {GET_SALES_FINISHED, GET_JWT_BY_FACEBOOK, SPINNER_SHOW, SPINNER_HIDE} from '../actions/index';
 
 const baseUrl = "https://collectorapi.herokuapp.com/";
 
 export function* getJwtByFacebook(action) {
-  yield put({ type: 'GET_TOKEN_STARTED' });
+  yield put({ type: SPINNER_SHOW });
   var facebookAccessToken = action.payload;
   try {
     var url = `${baseUrl}getJwtByFacebook?facebookAccessToken=${facebookAccessToken}`;
     let { data } = yield call(axios.get, url);
-    console.log(data);
-    yield put({ type: GET_TOKEN_FINISH });
+    alert(data);
+    yield put({ type: SPINNER_HIDE });
   } catch (error) {
-    yield put({ type: GET_TOKEN_ERROR });
+    yield put({ type: SPINNER_HIDE });
   }
 }
 

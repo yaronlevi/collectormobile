@@ -22,6 +22,7 @@ import ScreenLogin from './screenLogin';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import {
   getTheme
@@ -47,7 +48,6 @@ class App extends Component {
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
-    console.log(url);
     url = url.replace(".jpg", "_thumbnail.jpg");
     return (
       <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
@@ -141,6 +141,7 @@ class App extends Component {
         drawerWidth={300}
         renderNavigationView={() => drawerMenu}>
         <View style={styles.containerView}>
+          <Spinner visible={this.props.uiState.showSpinner} />
           <ToolbarAndroid
             navIcon={require('./images/ic_menu_white_24dp.png') }
             onIconClicked={() => { this.refs['DRAWER_REF'].openDrawer() } }

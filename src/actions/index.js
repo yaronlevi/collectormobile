@@ -1,13 +1,12 @@
 import axios from 'axios'
 
 export const INIT_ALBUMS_LIST_PROPS = 'INIT_ALBUMS_LIST_PROPS';
-export const CHANGE_SWITCH = 'CHANGE_SWITCH';
 export const GET_JWT_BY_FACEBOOK = 'GET_JWT_BY_FACEBOOK';
 export const GET_TOKEN_GOOGLE = 'GET_TOKEN_GOOGLE';
 export const GET_SALES = 'GET_SALES';
 export const GET_SALES_FINISHED = 'GET_SALES_FINISHED';
-export const GET_TOKEN_FINISH = 'GET_TOKEN_FINISH';
-export const GET_TOKEN_ERROR = 'GET_TOKEN_ERROR';
+export const SPINNER_SHOW = 'SPINNER_SHOW';
+export const SPINNER_HIDE = 'SPINNER_HIDE';
 
 const url = "http://collector.co.il/SalesBoard/GetSalesForMobile?page=1";
 
@@ -15,13 +14,6 @@ export function initAlbumsListProps(cellMargin, screenWidth){
   return {
     type:INIT_ALBUMS_LIST_PROPS,
     payload: {cellMargin, screenWidth}
-  }
-}
-
-export function setSwitch(switchState){
-  return {
-    type: CHANGE_SWITCH,
-    payload: switchState
   }
 }
 
