@@ -8,7 +8,8 @@ const baseUrl = "https://collectorapi.herokuapp.com/";
 
 export function* getJwtByFacebook(action) {
   yield put({ type: SPINNER_SHOW });
-  var facebookAccessToken = action.payload;
+  var facebookAccessToken = action.payload.facebookAccessToken;
+  var goToWhenFinish = action.payload.goToWhenFinish;
   try {
     var url = `${baseUrl}getJwtByFacebook?facebookAccessToken=${facebookAccessToken}`;
     let res = yield call(axios.get, url);

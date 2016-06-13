@@ -44,7 +44,7 @@ class App extends Component {
     var cellMargin = 10;
     var screenWidth = Dimensions.get('window').width;
     this.props.initAlbumsListProps(cellMargin, screenWidth);
-    this.props.getSales(1); 
+    this.props.getSales(1);
   }
 
   renderRowCell(rowData) {
@@ -90,9 +90,9 @@ class App extends Component {
     });
   }
 
-  bidSalePressed(thisContext) {
+  regularSalePressed(thisContext) {
 
-    LoginManager.logInWithReadPermissions(['public_profile','email']).then(
+    LoginManager.logInWithReadPermissions(['public_profile', 'email']).then(
       function (result) {
         if (result.isCancelled) {
           alert('Login cancelled');
@@ -102,15 +102,10 @@ class App extends Component {
         }
         else {
 
-          AccessToken.getCurrentAccessToken().then(            
+          AccessToken.getCurrentAccessToken().then(
             (data) => {
               var faceBookAccessToken = data.accessToken.toString();
-              thisContext.props.getJwtByFacebook(faceBookAccessToken);
-              //continue here:
-              //Read http://redux.js.org/docs/advanced/AsyncActions.html
-              //And use Modal with some UI state to show loading screen,
-              //while I make a call to the server together to decrypt the facebook access token and
-              //get back the JWT                        
+              thisContext.props.getJwtByFacebook(faceBookAccessToken, "goToNewRegularSale");           
             })
         }
       },
@@ -120,8 +115,8 @@ class App extends Component {
     );
   }
 
-  regularSalePressed() {
-
+  bidSalePressed(thisContext){
+    
   }
 
   render() {
@@ -175,7 +170,7 @@ class App extends Component {
             <ActionButton.Item buttonColor='#ffb31a' title="מכירה פומבית" onPress={() => this.bidSalePressed(this) }>
               <Icon name="gavel" style={styles.actionButtonIcon} />
             </ActionButton.Item>
-            <ActionButton.Item buttonColor='#ffb31a' title="מכירה רגילה" onPress={() => { } }>
+            <ActionButton.Item buttonColor='#ffb31a' title="מכירה רגילה" onPress={() => this.regularSalePressed(this) } >
               <Icon name="ils" style={styles.actionButtonIcon} />
             </ActionButton.Item>
           </ActionButton>

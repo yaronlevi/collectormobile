@@ -10,28 +10,28 @@ export const SPINNER_HIDE = 'SPINNER_HIDE';
 
 const url = "http://collector.co.il/SalesBoard/GetSalesForMobile?page=1";
 
-export function initAlbumsListProps(cellMargin, screenWidth){
+export function initAlbumsListProps(cellMargin, screenWidth) {
   return {
-    type:INIT_ALBUMS_LIST_PROPS,
-    payload: {cellMargin, screenWidth}
+    type: INIT_ALBUMS_LIST_PROPS,
+    payload: { cellMargin, screenWidth }
   }
 }
 
-export function getJwtByFacebook(facebookAccessToken){
+export function getJwtByFacebook(facebookAccessToken, goToWhenFinish) {
   return {
     type: GET_JWT_BY_FACEBOOK,
-    payload: facebookAccessToken
+    payload: { facebookAccessToken: facebookAccessToken, goToWhenFinish: goToWhenFinish }
   }
 }
 
-export function getTokenGoogle(googleAccessToken){
+export function getTokenGoogle(googleAccessToken) {
   return {
     type: GET_TOKEN_GOOGLE,
     payload: googleAccessToken
   }
 }
 
-export function getSales(page){
+export function getSales(page) {
   return {
     type: GET_SALES,
     payload: page
