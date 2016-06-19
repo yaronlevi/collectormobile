@@ -1,6 +1,7 @@
 package com.collectormobile;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import io.realm.react.RealmReactPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactPackage;
@@ -14,7 +15,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.facebook.reactnative.androidsdk.FBSDKPackage;
 import com.facebook.appevents.AppEventsLogger;  
 //---------
 

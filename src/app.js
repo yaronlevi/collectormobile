@@ -25,12 +25,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
 import realm from './realm/realm.js';
 
-import {
-  getTheme
-} from 'react-native-material-kit';
-
-const theme = getTheme();
-
 const FBSDK = require('react-native-fbsdk');
 const {
   LoginManager,
