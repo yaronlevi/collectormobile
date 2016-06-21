@@ -68,4 +68,3 @@ public class MainActivity extends ReactActivity {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
-        

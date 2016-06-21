@@ -3,12 +3,12 @@
  * https://github.com/facebook/react-native
  */
 
-import React, {
+import React, { Component } from 'react';
+
+import {
   AppRegistry,
-  Component,
   StyleSheet,
-  Text,
-  View
+  Text
 } from 'react-native';
 
 class collectormobile extends Component {

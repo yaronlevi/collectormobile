@@ -1,4 +1,5 @@
-import React, {View, Text, Component, ToolbarAndroid, StyleSheet} from "react-native";
+import React, { Component } from 'react';
+import {View, Text, ToolbarAndroid, StyleSheet} from "react-native";
 import {Actions} from 'react-native-router-flux'
 
 export default class ScreenAlbumInfo extends React.Component {

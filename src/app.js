@@ -1,8 +1,7 @@
-import React, {
-  Component,
+import React, { Component } from 'react';
+import {
   StyleSheet,
   Text,
-  View,
   Image,
   ToolbarAndroid,
   DrawerLayoutAndroid,
@@ -11,6 +10,8 @@ import React, {
   Switch,
   Modal
 } from 'react-native';
+
+import { View } from 'react-native';
 
 import Dimensions from 'Dimensions';
 import { getSales, initAlbumsListProps, setSwitch, getJwtByFacebook } from './actions/index';
