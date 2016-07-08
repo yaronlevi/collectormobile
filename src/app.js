@@ -44,7 +44,7 @@ class App extends Component {
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
-    //url = url.replace(".jpg", "_thumbnail.jpg");
+    url = url.replace(".jpg", "_thumbnail.jpg");
     return (
       <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
@@ -54,8 +54,9 @@ class App extends Component {
   }
 
   getStyleTouchableOpacity() {
-    console.log(this.props.albumsListParams.cellMargin);
     return {
+      height: this.props.albumsListParams.cellWidth,
+      width: this.props.albumsListParams.cellWidth,
       margin: this.props.albumsListParams.cellMargin,
       elevation: 3,
       backgroundColor: "white" //Without this the elevation is not shown for some reason.      
@@ -63,7 +64,6 @@ class App extends Component {
   }
 
   getCellStyle() {
-    console.log(this.props.albumsListParams.cellWidth);
     return {
       height: this.props.albumsListParams.cellWidth,
       width: this.props.albumsListParams.cellWidth,
@@ -102,7 +102,7 @@ class App extends Component {
           AccessToken.getCurrentAccessToken().then(
             (data) => {
               var faceBookAccessToken = data.accessToken.toString();
-              thisContext.props.getJwtByFacebook(faceBookAccessToken, "goToNewRegularSale");           
+              thisContext.props.getJwtByFacebook(faceBookAccessToken, "goToNewRegularSale");
             })
         }
       },
@@ -112,8 +112,8 @@ class App extends Component {
     );
   }
 
-  bidSalePressed(thisContext){
-    
+  bidSalePressed(thisContext) {
+
   }
 
   render() {
