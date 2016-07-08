@@ -44,7 +44,7 @@ class App extends Component {
 
   renderRowCell(rowData) {
     var url = rowData.ImageUrl;
-    url = url.replace(".jpg", "_thumbnail.jpg");
+    //url = url.replace(".jpg", "_thumbnail.jpg");
     return (
       <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
@@ -54,6 +54,7 @@ class App extends Component {
   }
 
   getStyleTouchableOpacity() {
+    console.log(this.props.albumsListParams.cellMargin);
     return {
       margin: this.props.albumsListParams.cellMargin,
       elevation: 3,
@@ -62,6 +63,7 @@ class App extends Component {
   }
 
   getCellStyle() {
+    console.log(this.props.albumsListParams.cellWidth);
     return {
       height: this.props.albumsListParams.cellWidth,
       width: this.props.albumsListParams.cellWidth,

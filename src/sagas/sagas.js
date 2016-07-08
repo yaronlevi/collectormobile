@@ -33,10 +33,12 @@ export function* getSales(action) {
     if (Array.isArray(res.data)) {
       yield put({ type: GET_SALES_FINISHED, sales: res.data });
     } else {
-      console.log("error in getSales:" + res.data);
+      console.log("Error in getSles()");
+      console.log(res.data);
     }
   } catch (error) {
-    console.log("error in getSales" + error);
+    console.log("Error in getSles()");
+    console.log(error);
   }
 }
 
