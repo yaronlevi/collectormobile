@@ -9,10 +9,10 @@ export default class ScreenAlbumInfo extends React.Component {
         return (
             <View>
                 <ToolbarAndroid
-                    navIcon={require('./images/ic_arrow_back_black_24dp.png') }      
+                    navIcon={require('../images/ic_arrow_back_black_24dp.png') }      
                     onIconClicked={Actions.pop}              
                     actions={[
-                        { title: 'Bla', icon: require('./images/ic_search_black_24dp.png'), show: 'always' },
+                        { title: 'Bla', icon: require('../images/ic_search_black_24dp.png'), show: 'always' },
                         { title: 'Settings', show: 'never' }]}
                     style={styles.toolbar}
                     title='מידע על תקליט'/>

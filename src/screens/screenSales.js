@@ -14,7 +14,7 @@ import {
 import { View } from 'react-native';
 
 import Dimensions from 'Dimensions';
-import { getSales, initAlbumsListProps, setSwitch, getJwtByFacebook } from './actions/index';
+import { getSales, initAlbumsListProps, setSwitch, getJwtByFacebook } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {Actions} from 'react-native-router-flux'
@@ -24,7 +24,7 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Spinner from 'react-native-loading-spinner-overlay';
-import realm from './realm/realm.js';
+import realm from '../realm/realm.js';
 
 const FBSDK = require('react-native-fbsdk');
 const {
@@ -32,7 +32,7 @@ const {
   AccessToken
 } = FBSDK;
 
-class App extends Component {
+class ScreenSales extends Component {
 
   constructor(props) {
     super(props);
@@ -46,7 +46,7 @@ class App extends Component {
     var url = rowData.ImageUrl;
     url = url.replace(".jpg", "_thumbnail.jpg");
     return (
-      <TouchableOpacity onPress={() => { this.navigateToAlbumInfo() } } style={this.getStyleTouchableOpacity() }>
+      <TouchableOpacity onPress={() => { Actions.saleInfo() } } style={this.getStyleTouchableOpacity() }>
         <Image source={{ uri: url }} style={this.getCellStyle() } />
       </TouchableOpacity>
 
@@ -137,10 +137,10 @@ class App extends Component {
         <View style={styles.containerView}>
           <Spinner visible={this.props.uiState.showSpinner} />
           <ToolbarAndroid
-            navIcon={require('./images/ic_menu_white_24dp.png') }
+            navIcon={require('../images/ic_menu_white_24dp.png') }
             onIconClicked={() => { this.refs['DRAWER_REF'].openDrawer() } }
             actions={[
-              { title: 'Bla', icon: require('./images/ic_search_white_24dp.png'), show: 'always' },
+              { title: 'Bla', icon: require('../images/ic_search_white_24dp.png'), show: 'always' },
               { title: 'Settings', show: 'never' }]}
             style={styles.toolbar}
             title='אספן התקליטים'
@@ -185,7 +185,7 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(ScreenSales);
 
 const styles = StyleSheet.create({
   list: {
